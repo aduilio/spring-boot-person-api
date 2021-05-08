@@ -18,12 +18,12 @@ public class PersonService {
 	@Autowired
 	private final PersonRepository personRepository;
 
-	public Long create(Person person) {
+	public Long create(final Person person) {
 		return personRepository.save(person)
 				.getId();
 	}
 
-	public Optional<Person> read(Long id) {
+	public Optional<Person> read(final Long id) {
 		return personRepository.findById(id);
 	}
 
@@ -31,7 +31,11 @@ public class PersonService {
 		return personRepository.findAll();
 	}
 
-	public void delete(Long id) {
+	public void delete(final Long id) {
 		personRepository.deleteById(id);
+	}
+
+	public void update(final Person person) {
+		personRepository.save(person);
 	}
 }
