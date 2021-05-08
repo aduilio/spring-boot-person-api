@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,7 @@ public class PersonController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public PersonResponseDTO create(@RequestBody Person person) {
+	public PersonResponseDTO create(@RequestBody final Person person) {
 		final Long id = personService.create(person);
 
 		return PersonResponseDTO.builder()
@@ -37,7 +38,7 @@ public class PersonController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Person> getPerson(@PathVariable Long id) {
+	public ResponseEntity<Person> read(@PathVariable final Long id) {
 		final Optional<Person> person = personService.read(id);
 
 		if (person.isPresent()) {
@@ -49,10 +50,14 @@ public class PersonController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Person>> listPerson() {
+	public ResponseEntity<List<Person>> list() {
 		final List<Person> people = personService.list();
 
 		return ResponseEntity.ok(people);
 	}
 
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable final Long id) {
+		personService.delete(id);
+	}
 }
