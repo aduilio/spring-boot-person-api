@@ -1,5 +1,6 @@
 package com.aduilio.personapi.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,9 @@ public class PersonService {
 
 	public Optional<Person> read(Long id) {
 		return personRepository.findById(id);
+	}
+
+	public List<Person> list() {
+		return personRepository.findAll();
 	}
 }

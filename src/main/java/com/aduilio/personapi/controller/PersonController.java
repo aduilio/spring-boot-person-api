@@ -1,5 +1,6 @@
 package com.aduilio.personapi.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -46,4 +47,12 @@ public class PersonController {
 		return ResponseEntity.notFound()
 				.build();
 	}
+
+	@GetMapping
+	public ResponseEntity<List<Person>> listPerson() {
+		final List<Person> people = personService.list();
+
+		return ResponseEntity.ok(people);
+	}
+
 }
