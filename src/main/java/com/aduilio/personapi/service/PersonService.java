@@ -24,15 +24,36 @@ public class PersonService {
 		this.personRepository = personRepository;
 	}
 
+	/**
+	 * Create a person.
+	 *
+	 * @param personDTO to be created
+	 *
+	 * @return the id the person created
+	 */
 	public Long create(final PersonDTO personDTO) {
 		return savePerson(personDTO).getId();
 
 	}
 
+	/**
+	 * Read a person by id.
+	 * 
+	 * @param id of the Person
+	 * 
+	 * @return {@link PersonDTO}
+	 * 
+	 * @throws PersonNotFoundException if the id does not exist
+	 */
 	public PersonDTO read(final Long id) throws PersonNotFoundException {
 		return personMapper.mapPersonDTOFrom(readPerson(id));
 	}
 
+	/**
+	 * Read all people.
+	 *
+	 * @return {@link List} of {@link PersonDTO}
+	 */
 	public List<PersonDTO> list() {
 		return personRepository.findAll()
 				.stream()
@@ -41,10 +62,27 @@ public class PersonService {
 
 	}
 
+	/**
+	 * Delete a Person by id.
+	 *
+	 * @param id of the Person
+	 *
+	 * @throws PersonNotFoundException if the id does not exist
+	 */
 	public void delete(final Long id) throws PersonNotFoundException {
 		personRepository.delete(readPerson(id));
 	}
 
+	/**
+	 * Update a person.
+	 * 
+	 * @param id        of the Person
+	 * @param personDTO to be updated
+	 * 
+	 * @return {@link PersonDTO} with the new values
+	 * 
+	 * @throws PersonNotFoundException if the id does not exist
+	 */
 	public PersonDTO update(final Long id, final PersonDTO personDTO) throws PersonNotFoundException {
 		readPerson(id);
 
