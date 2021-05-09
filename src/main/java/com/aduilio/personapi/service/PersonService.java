@@ -1,7 +1,6 @@
 package com.aduilio.personapi.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.aduilio.personapi.dto.PersonDTO;
 import com.aduilio.personapi.entity.Person;
+import com.aduilio.personapi.exception.PersonNotFoundException;
 import com.aduilio.personapi.mapper.PersonMapper;
 import com.aduilio.personapi.repository.PersonRepository;
 
@@ -29,8 +29,10 @@ public class PersonService {
 				.getId();
 	}
 
-	public Optional<Person> read(final Long id) {
-		return personRepository.findById(id);
+	public PersonDTO read(final Long id) throws PersonNotFoundException {
+		return personRepository.findById(id)
+				.map(personMapper::mapPersonDTOFrom)
+				.orElseThrow(() -> new PersonNotFoundException(id));
 	}
 
 	public List<PersonDTO> list() {

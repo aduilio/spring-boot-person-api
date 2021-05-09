@@ -1,7 +1,6 @@
 package com.aduilio.personapi.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aduilio.personapi.dto.PersonDTO;
 import com.aduilio.personapi.dto.PersonResponseDTO;
 import com.aduilio.personapi.entity.Person;
+import com.aduilio.personapi.exception.PersonNotFoundException;
 import com.aduilio.personapi.service.PersonService;
 
 import lombok.AllArgsConstructor;
@@ -42,15 +42,8 @@ public class PersonController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Person> read(@PathVariable final Long id) {
-		final Optional<Person> person = personService.read(id);
-
-		if (person.isPresent()) {
-			return ResponseEntity.ok(person.get());
-		}
-
-		return ResponseEntity.notFound()
-				.build();
+	public ResponseEntity<PersonDTO> read(@PathVariable final Long id) throws PersonNotFoundException {
+		return ResponseEntity.ok(personService.read(id));
 	}
 
 	@GetMapping
