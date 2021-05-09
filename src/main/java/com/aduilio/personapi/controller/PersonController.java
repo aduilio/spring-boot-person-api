@@ -54,10 +54,8 @@ public class PersonController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Person>> list() {
-		final List<Person> people = personService.list();
-
-		return ResponseEntity.ok(people);
+	public ResponseEntity<List<PersonDTO>> list() {
+		return ResponseEntity.ok(personService.list());
 	}
 
 	@DeleteMapping("/{id}")

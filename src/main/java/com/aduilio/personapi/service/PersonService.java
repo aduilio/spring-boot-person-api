@@ -2,6 +2,7 @@ package com.aduilio.personapi.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +33,12 @@ public class PersonService {
 		return personRepository.findById(id);
 	}
 
-	public List<Person> list() {
-		return personRepository.findAll();
+	public List<PersonDTO> list() {
+		return personRepository.findAll()
+				.stream()
+				.map(personMapper::mapPersonDTOFrom)
+				.collect(Collectors.toList());
+
 	}
 
 	public void delete(final Long id) {
