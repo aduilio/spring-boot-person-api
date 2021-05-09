@@ -25,8 +25,8 @@ public class PersonService {
 	}
 
 	public Long create(final PersonDTO personDTO) {
-		return personRepository.save(personMapper.mapPersonFrom(personDTO))
-				.getId();
+		return savePerson(personDTO).getId();
+
 	}
 
 	public PersonDTO read(final Long id) throws PersonNotFoundException {
@@ -45,12 +45,20 @@ public class PersonService {
 		personRepository.delete(readPerson(id));
 	}
 
-	public void update(final Person person) {
-		final Person save = personRepository.save(person);
+	public PersonDTO update(final Long id, final PersonDTO personDTO) throws PersonNotFoundException {
+		readPerson(id);
+
+		personDTO.setId(id);
+		return personMapper.mapPersonDTOFrom(savePerson(personDTO));
+
 	}
 
 	private Person readPerson(final Long id) throws PersonNotFoundException {
 		return personRepository.findById(id)
 				.orElseThrow(() -> new PersonNotFoundException(id));
+	}
+
+	private Person savePerson(final PersonDTO personDTO) {
+		return personRepository.save(personMapper.mapPersonFrom(personDTO));
 	}
 }

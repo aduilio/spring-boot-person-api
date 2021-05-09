@@ -8,9 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aduilio.personapi.dto.PersonDTO;
 import com.aduilio.personapi.dto.PersonResponseDTO;
-import com.aduilio.personapi.entity.Person;
 import com.aduilio.personapi.exception.PersonNotFoundException;
 import com.aduilio.personapi.service.PersonService;
 
@@ -57,9 +56,9 @@ public class PersonController {
 		personService.delete(id);
 	}
 
-	@PatchMapping("/{id}")
-	public void update(@PathVariable final Long id, @RequestBody final Person person) {
-		person.setId(id);
-		personService.update(person);
+	@PutMapping("/{id}")
+	public PersonDTO update(@PathVariable final Long id, @RequestBody @Valid final PersonDTO personDTO)
+			throws PersonNotFoundException {
+		return personService.update(id, personDTO);
 	}
 }
