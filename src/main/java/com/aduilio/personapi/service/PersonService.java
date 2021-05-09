@@ -6,20 +6,25 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aduilio.personapi.dto.PersonDTO;
 import com.aduilio.personapi.entity.Person;
+import com.aduilio.personapi.mapper.PersonMapper;
 import com.aduilio.personapi.repository.PersonRepository;
 
-import lombok.AllArgsConstructor;
-
 @Service
-@AllArgsConstructor
 public class PersonService {
 
-	@Autowired
 	private final PersonRepository personRepository;
 
-	public Long create(final Person person) {
-		return personRepository.save(person)
+	PersonMapper personMapper = PersonMapper.INSTANCE;
+
+	@Autowired
+	public PersonService(final PersonRepository personRepository) {
+		this.personRepository = personRepository;
+	}
+
+	public Long create(final PersonDTO personDTO) {
+		return personRepository.save(personMapper.mapPersonFrom(personDTO))
 				.getId();
 	}
 

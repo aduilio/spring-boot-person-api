@@ -3,6 +3,8 @@ package com.aduilio.personapi.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aduilio.personapi.dto.PersonDTO;
 import com.aduilio.personapi.dto.PersonResponseDTO;
 import com.aduilio.personapi.entity.Person;
 import com.aduilio.personapi.service.PersonService;
@@ -30,8 +33,8 @@ public class PersonController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public PersonResponseDTO create(@RequestBody final Person person) {
-		final Long id = personService.create(person);
+	public PersonResponseDTO create(@RequestBody @Valid final PersonDTO personDTO) {
+		final Long id = personService.create(personDTO);
 
 		return PersonResponseDTO.builder()
 				.id(id)
