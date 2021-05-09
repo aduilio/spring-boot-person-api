@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhoneDTO {
+public class PhoneDto {
 
 	private Long id;
 

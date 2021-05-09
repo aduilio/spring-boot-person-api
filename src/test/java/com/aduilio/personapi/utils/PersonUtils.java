@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 
-import com.aduilio.personapi.dto.PersonDTO;
+import com.aduilio.personapi.dto.PersonDto;
+import com.aduilio.personapi.dto.PhoneDto;
 import com.aduilio.personapi.entity.Person;
 import com.aduilio.personapi.entity.Phone;
 import com.aduilio.personapi.enums.PhoneType;
@@ -50,28 +51,28 @@ public class PersonUtils {
 				.build();
 	}
 
-	public static PersonDTO createPersonDTO() {
-		return PersonDTO.builder()
+	public static PersonDto createPersonDTO() {
+		return PersonDto.builder()
 				.id(ID)
 				.firstName(FIRST_NAME)
 				.lastName(LAST_NAME)
 				.birthDate(BIRTH_DATE_STR)
 				.cpf(CPF)
-				.phones(Collections.singletonList(Phone.builder()
+				.phones(Collections.singletonList(PhoneDto.builder()
 						.number(PHONE_NUMBER)
 						.type(PHONE_TYPE)
 						.build()))
 				.build();
 	}
 
-	public static PersonDTO createPersonDTOUpdate() {
-		return PersonDTO.builder()
+	public static PersonDto createPersonDTOUpdate() {
+		return PersonDto.builder()
 				.id(ID)
 				.firstName("New" + FIRST_NAME)
 				.lastName("New" + LAST_NAME)
 				.birthDate(BIRTH_DATE_STR)
 				.cpf(CPF)
-				.phones(Collections.singletonList(Phone.builder()
+				.phones(Collections.singletonList(PhoneDto.builder()
 						.number(PHONE_NUMBER)
 						.type(PHONE_TYPE)
 						.build()))

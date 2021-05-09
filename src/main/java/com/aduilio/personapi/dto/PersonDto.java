@@ -8,8 +8,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import com.aduilio.personapi.entity.Phone;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonDTO {
+public class PersonDto {
 
 	private Long id;
 
@@ -39,5 +37,5 @@ public class PersonDTO {
 
 	@Valid
 	@NotEmpty
-	private List<Phone> phones;
+	private List<PhoneDto> phones;
 }

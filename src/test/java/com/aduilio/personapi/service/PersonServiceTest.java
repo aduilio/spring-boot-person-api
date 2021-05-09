@@ -14,7 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.aduilio.personapi.dto.PersonDTO;
+import com.aduilio.personapi.dto.PersonDto;
 import com.aduilio.personapi.entity.Person;
 import com.aduilio.personapi.exception.PersonNotFoundException;
 import com.aduilio.personapi.repository.PersonRepository;
@@ -31,7 +31,7 @@ class PersonServiceTest {
 
 	@Test
 	void createWithValuesShouldReturnId() {
-		final PersonDTO personDto = PersonUtils.createPersonDTO();
+		final PersonDto personDto = PersonUtils.createPersonDTO();
 		final Person person = PersonUtils.createPerson();
 
 		when(personRepositoryMock.save(person)).thenReturn(person);
@@ -43,12 +43,12 @@ class PersonServiceTest {
 
 	@Test
 	void readWithValidIdShouldReturnPerson() throws PersonNotFoundException {
-		final PersonDTO personDto = PersonUtils.createPersonDTO();
+		final PersonDto personDto = PersonUtils.createPersonDTO();
 		final Person person = PersonUtils.createPerson();
 
 		when(personRepositoryMock.findById(person.getId())).thenReturn(Optional.of(person));
 
-		final PersonDTO result = personService.read(PersonUtils.ID);
+		final PersonDto result = personService.read(PersonUtils.ID);
 
 		assertThat(result).isEqualTo(personDto);
 	}
@@ -84,15 +84,15 @@ class PersonServiceTest {
 
 	@Test
 	void updateWithValidIdShouldReturnPerson() throws PersonNotFoundException {
-		final PersonDTO personDto = PersonUtils.createPersonDTO();
-		final PersonDTO personDtoUpdate = PersonUtils.createPersonDTOUpdate();
+		final PersonDto personDto = PersonUtils.createPersonDTO();
+		final PersonDto personDtoUpdate = PersonUtils.createPersonDTOUpdate();
 		final Person person = PersonUtils.createPerson();
 		final Person personUpdated = PersonUtils.createPersonUpdated();
 
 		when(personRepositoryMock.findById(person.getId())).thenReturn(Optional.of(person));
 		when(personRepositoryMock.save(person)).thenReturn(personUpdated);
 
-		final PersonDTO result = personService.update(personDto.getId(), personDto);
+		final PersonDto result = personService.update(personDto.getId(), personDto);
 
 		assertThat(result).isEqualTo(personDtoUpdate);
 		verify(personRepositoryMock, times(1)).findById(person.getId());
@@ -100,7 +100,7 @@ class PersonServiceTest {
 
 	@Test
 	void updateWithInvalidIdShouldThrowException() throws PersonNotFoundException {
-		final PersonDTO personDto = PersonUtils.createPersonDTO();
+		final PersonDto personDto = PersonUtils.createPersonDTO();
 
 		when(personRepositoryMock.findById(personDto.getId())).thenReturn(Optional.empty());
 

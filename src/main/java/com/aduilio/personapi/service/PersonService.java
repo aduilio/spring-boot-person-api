@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.aduilio.personapi.dto.PersonDTO;
+import com.aduilio.personapi.dto.PersonDto;
 import com.aduilio.personapi.entity.Person;
 import com.aduilio.personapi.exception.PersonNotFoundException;
 import com.aduilio.personapi.mapper.PersonMapper;
@@ -27,12 +27,12 @@ public class PersonService {
 	/**
 	 * Create a person.
 	 *
-	 * @param personDTO to be created
+	 * @param personDto to be created
 	 *
 	 * @return the id the person created
 	 */
-	public Long create(final PersonDTO personDTO) {
-		return savePerson(personDTO).getId();
+	public Long create(final PersonDto personDto) {
+		return savePerson(personDto).getId();
 
 	}
 
@@ -41,23 +41,23 @@ public class PersonService {
 	 * 
 	 * @param id of the Person
 	 * 
-	 * @return {@link PersonDTO}
+	 * @return {@link PersonDto}
 	 * 
 	 * @throws PersonNotFoundException if the id does not exist
 	 */
-	public PersonDTO read(final Long id) throws PersonNotFoundException {
-		return personMapper.mapPersonDTOFrom(readPerson(id));
+	public PersonDto read(final Long id) throws PersonNotFoundException {
+		return personMapper.mapPersonDtoFrom(readPerson(id));
 	}
 
 	/**
 	 * Read all people.
 	 *
-	 * @return {@link List} of {@link PersonDTO}
+	 * @return {@link List} of {@link PersonDto}
 	 */
-	public List<PersonDTO> list() {
+	public List<PersonDto> list() {
 		return personRepository.findAll()
 				.stream()
-				.map(personMapper::mapPersonDTOFrom)
+				.map(personMapper::mapPersonDtoFrom)
 				.collect(Collectors.toList());
 
 	}
@@ -77,17 +77,17 @@ public class PersonService {
 	 * Update a person.
 	 * 
 	 * @param id        of the Person
-	 * @param personDTO to be updated
+	 * @param personDto to be updated
 	 * 
-	 * @return {@link PersonDTO} with the new values
+	 * @return {@link PersonDto} with the new values
 	 * 
 	 * @throws PersonNotFoundException if the id does not exist
 	 */
-	public PersonDTO update(final Long id, final PersonDTO personDTO) throws PersonNotFoundException {
+	public PersonDto update(final Long id, final PersonDto personDto) throws PersonNotFoundException {
 		readPerson(id);
 
-		personDTO.setId(id);
-		return personMapper.mapPersonDTOFrom(savePerson(personDTO));
+		personDto.setId(id);
+		return personMapper.mapPersonDtoFrom(savePerson(personDto));
 
 	}
 
@@ -96,7 +96,7 @@ public class PersonService {
 				.orElseThrow(() -> new PersonNotFoundException(id));
 	}
 
-	private Person savePerson(final PersonDTO personDTO) {
-		return personRepository.save(personMapper.mapPersonFrom(personDTO));
+	private Person savePerson(final PersonDto personDto) {
+		return personRepository.save(personMapper.mapPersonFrom(personDto));
 	}
 }

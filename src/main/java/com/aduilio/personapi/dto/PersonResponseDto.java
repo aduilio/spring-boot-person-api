@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class PersonResponseDTO {
+public class PersonResponseDto {
 
 	private Long id;
 }
