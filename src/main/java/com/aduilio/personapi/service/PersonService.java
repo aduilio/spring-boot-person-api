@@ -30,9 +30,7 @@ public class PersonService {
 	}
 
 	public PersonDTO read(final Long id) throws PersonNotFoundException {
-		return personRepository.findById(id)
-				.map(personMapper::mapPersonDTOFrom)
-				.orElseThrow(() -> new PersonNotFoundException(id));
+		return personMapper.mapPersonDTOFrom(readPerson(id));
 	}
 
 	public List<PersonDTO> list() {
@@ -43,11 +41,16 @@ public class PersonService {
 
 	}
 
-	public void delete(final Long id) {
-		personRepository.deleteById(id);
+	public void delete(final Long id) throws PersonNotFoundException {
+		personRepository.delete(readPerson(id));
 	}
 
 	public void update(final Person person) {
-		personRepository.save(person);
+		final Person save = personRepository.save(person);
+	}
+
+	private Person readPerson(final Long id) throws PersonNotFoundException {
+		return personRepository.findById(id)
+				.orElseThrow(() -> new PersonNotFoundException(id));
 	}
 }
