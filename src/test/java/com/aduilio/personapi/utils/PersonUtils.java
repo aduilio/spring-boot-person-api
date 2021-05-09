@@ -16,11 +16,11 @@ public class PersonUtils {
 	public static final String FIRST_NAME = "fName";
 	public static final String LAST_NAME = "lName";
 	public static final String BIRTH_DATE_STR = "01-01-2000";
-	public static final String CPF = "123-456-789-00";
+	public static final String CPF = "298.218.080-42";
 	public static final LocalDate BIRTH_DATE_LDATE = LocalDate.parse(BIRTH_DATE_STR,
 			DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
-	public static final String PHONE_NUMBER = "12 3456-7890";
+	public static final String PHONE_NUMBER = "(12) 3456-7890";
 	public static final PhoneType PHONE_TYPE = PhoneType.MOBILE;
 
 	public static Person createPerson() {
